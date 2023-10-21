@@ -13,10 +13,10 @@ class ActivityProcessor(base.ActivityProcessor):
         self.activity_model = Wimhof
         self.rounds = []
 
-    def parse_and_save(self, payload):
+    def parse_and_save(self, words):
         self.rounds = []
-        breaths = [int(b) for b in payload[::2]]
-        retentions = [float(r) for r in payload[1::2]]
+        breaths = [int(b) for b in words[::2]]
+        retentions = [float(r) for r in words[1::2]]
         if len(breaths) != len(retentions):
             raise exceptions.ActivityProcessingError('Not the same number of breaths and seconds')
         if len(breaths) < 1:

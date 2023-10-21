@@ -17,7 +17,8 @@ class StringProcessor:
 
         # module specific activity processing
         try:
-            ap.process_activity(user_id, emoji, payload, recv_time, unit_name, comment)
+            words = payload.split()
+            ap.process_activity(user_id, emoji, words, recv_time, unit_name, comment)
         except exceptions.ActivityProcessingError as e:
             return ProcessingResult(False, error=str(e))
         except exceptions.ActivityProcessingWarning as e:

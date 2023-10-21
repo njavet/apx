@@ -13,11 +13,11 @@ class ActivityProcessor(base.ActivityProcessor):
         self.activity_model = Lifting
         self.sets = []
 
-    def parse_and_save(self, payload):
+    def parse_and_save(self, words):
         self.sets = []
-        weights = [float(w) for w in payload[::3]]
-        reps = [float(r) for r in payload[1::3]]
-        pauses = [float(p) for p in payload[2::3]] + [0]
+        weights = [float(w) for w in words[::3]]
+        reps = [float(r) for r in words[1::3]]
+        pauses = [float(p) for p in words[2::3]] + [0]
 
         if len(reps) != len(weights):
             raise exceptions.ActivityProcessingError('Not the same number of reps and weights')
