@@ -12,19 +12,18 @@ class StringProcessor:
 
     def process_string(self, input_string, user_id, recv_time=None):
         emoji, payload, comment = self._parse_activity(input_string)
-
-        emoji_mapping = self.emojis[emoji]
-        if '.' in emoji_mapping:
-            module_name, unit_name = emoji_mapping.split('.')
-        else:
-            module_name, unit_name = emoji_mapping, None
-
+        module_name, unit_name = self._parse_names(self.emojis[emoji])
         ap = self._load_activity_processor(emoji, module_name)
 
         # module specific activity processing
-        ap.init_activity_unit(user_id, emoji, unit_name, comment)
-        ap.activity.set_time(recv_time)
-        ap.process_activity(payload)
+        try:
+            ap.process_activity(user_id, emoji, payload, recv_time, unit_name, comment)
+        except exceptions.ActivityProcessingError as e:
+            return ProcessingResult(False, error=str(e))
+        except exceptions.ActivityProcessingWarning as e:
+            return ProcessingResult(True, warning=str(e))
+        else:
+            return ProcessingResult(True)
 
     def _parse_activity(self, input_string):
         parts = input_string.split('//', 1)
@@ -41,6 +40,14 @@ class StringProcessor:
 
         return emoji, payload, comment
 
+    @staticmethod
+    def _parse_names(emoji_mapping):
+        if '.' in emoji_mapping:
+            module_name, unit_name = emoji_mapping.split('.')
+        else:
+            module_name, unit_name = emoji_mapping, None
+        return module_name, unit_name
+
     def _load_activity_processor(self, emoji, name):
         if emoji not in self.activity_processors:
             module = importlib.import_module('apx.activities.' + name)
@@ -48,3 +55,10 @@ class StringProcessor:
             self.activity_processors[emoji] = ap
         return self.activity_processors[emoji]
 
+
+class ProcessingResult:
+    def __init__(self, success, data=None, warning=None, error=None):
+        self.success = success
+        self.data = data
+        self.warning = warning
+        self.error = error

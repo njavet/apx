@@ -40,7 +40,7 @@ class ActivityUnit(BaseModel):
         else:
             self.log_date = self.log_time.date()
 
-    def parse_and_save(self, words):
+    def parse_and_save(self, payload):
         raise NotImplementedError
 
 
