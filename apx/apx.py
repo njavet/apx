@@ -2,7 +2,7 @@
 import importlib
 
 # project imports
-from utils import exceptions
+from apx.utils import exceptions
 
 
 class StringProcessor:
