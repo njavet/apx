@@ -22,33 +22,19 @@ class TestBalance(unittest.TestCase):
         test_db.drop_tables(MODELS)
         test_db.close()
 
-    def test_ap_complete_input(self):
-        res = self.ap.process_activity(test_user_id,
-                                       self.emoji,
-                                       ['88.2', '10.1', '60', '42'])
-        self.assertTrue(res)
-
-    def test_ap_weight_only(self):
-        res = self.ap.process_activity(test_user_id,
-                                       self.emoji,
-                                       ['98.5'])
-        self.assertTrue(res)
-
     def test_complete_input(self):
-        res = self.ap.process_activity(test_user_id,
-                                       self.emoji,
-                                       ['101', '16.1', '60', '42'])
-        self.assertTrue(res)
+        self.ap.process_activity(test_user_id,
+                                 self.emoji,
+                                 ['101', '16.1', '60', '42'])
         self.assertEqual(self.ap.activity.weight, 101)
         self.assertEqual(self.ap.activity.fat, 16.1)
         self.assertEqual(self.ap.activity.water, 60)
         self.assertEqual(self.ap.activity.muscles, 42)
 
     def test_weight_only(self):
-        res = self.ap.process_activity(test_user_id,
-                                       self.emoji,
-                                       ['98.5'])
-        self.assertTrue(res)
+        self.ap.process_activity(test_user_id,
+                                 self.emoji,
+                                 ['98.5'])
         self.assertEqual(self.ap.activity.weight, 98.5)
         self.assertIsNone(self.ap.activity.fat)
         self.assertIsNone(self.ap.activity.water)

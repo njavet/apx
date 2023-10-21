@@ -24,20 +24,20 @@ class Balance(db.ActivityUnit):
     water = pw.FloatField(null=True)
     muscles = pw.FloatField(null=True)
 
-    def parse_and_save(self, payload):
+    def parse(self, words):
         try:
-            self.weight = float(payload[0])
+            self.weight = float(words[0])
         except (IndexError, ValueError):
             raise exceptions.ActivityProcessingError('Specify the weight')
         try:
-            self.fat = float(payload[1])
+            self.fat = float(words[1])
         except (IndexError, ValueError):
             self.fat = None
         try:
-            self.water = float(payload[2])
+            self.water = float(words[2])
         except (IndexError, ValueError):
             self.water = None
         try:
-            self.muscles = float(payload[3])
+            self.muscles = float(words[3])
         except (IndexError, ValueError):
             self.muscles = None

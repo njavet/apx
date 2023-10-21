@@ -15,8 +15,7 @@ class ActivityProcessor:
                          comment=None):
         self.init_activity_unit(user_id, emoji, unit_name, comment)
         self.activity.set_time(recv_time)
-        self.activity.parse_and_save(payload)
-        return True
+        self.parse_and_save(payload)
 
     def init_activity_unit(self, user_id, emoji, name=None, comment=None):
         self.activity = self.activity_model(user=user_id,
@@ -24,6 +23,10 @@ class ActivityProcessor:
                                             comment=comment)
         if name:
             self.activity.name = name
+
+    def parse_and_save(self, payload):
+        self.activity.parse(payload)
+        self.activity.save()
 
     def post_saving(self, user_id):
         pass

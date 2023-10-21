@@ -40,8 +40,12 @@ class ActivityUnit(BaseModel):
         else:
             self.log_date = self.log_time.date()
 
-    def parse_and_save(self, payload):
+    def parse(self, words):
         raise NotImplementedError
+
+
+class SubUnit(BaseModel):
+    activity_unit = pw.ForeignKeyField(ActivityUnit)
 
 
 class ChronoUnit(ActivityUnit):
