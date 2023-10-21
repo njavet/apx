@@ -35,13 +35,13 @@ class ActivityProcessor(base.ActivityProcessor):
                 rel_strength = orm / at.weight
             except TypeError:
                 rel_strength = None
-            ls = Set(activity_unit=self.activity.get_id(),
-                     set_nr=i,
-                     weight=w,
-                     reps=r,
-                     pause=b,
-                     orm=orm,
-                     rel_strength=rel_strength)
+            ls = LiftSet(activity_unit=self.activity.get_id(),
+                         set_nr=i,
+                         weight=w,
+                         reps=r,
+                         pause=b,
+                         orm=orm,
+                         rel_strength=rel_strength)
             self.sets.append(ls)
             ls.save()
 
@@ -53,7 +53,7 @@ class Lifting(db.ActivityUnit):
         pass
 
 
-class Set(db.SubUnit):
+class LiftSet(db.SubUnit):
     set_nr = pw.IntegerField()
     weight = pw.FloatField()
     reps = pw.FloatField()
@@ -64,5 +64,5 @@ class Set(db.SubUnit):
 
 database = pw.SqliteDatabase(db.DB_NAME)
 database.connect()
-database.create_tables([Lifting, Set], safe=True)
+database.create_tables([Lifting, LiftSet], safe=True)
 database.close()
