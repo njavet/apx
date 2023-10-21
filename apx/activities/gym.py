@@ -25,3 +25,9 @@ class Gym(db.ChronoUnit):
             self.place = words[1]
         except IndexError:
             pass
+
+
+database = pw.SqliteDatabase(db.DB_NAME)
+database.connect()
+database.create_tables([Gym], safe=True)
+database.close()

@@ -61,3 +61,8 @@ class Set(db.SubUnit):
     orm = pw.FloatField()
     rel_strength = pw.FloatField(null=True)
 
+
+database = pw.SqliteDatabase(db.DB_NAME)
+database.connect()
+database.create_tables([Lifting, Set], safe=True)
+database.close()

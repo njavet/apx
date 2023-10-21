@@ -54,3 +54,10 @@ class ChronoUnit(ActivityUnit):
     end = pw.DateTimeField(null=True)
     place = pw.CharField(null=True)
     effort = pw.IntegerField(default=3)
+
+
+database = pw.SqliteDatabase(DB_NAME)
+database.connect()
+database.create_tables([User], safe=True)
+database.close()
+

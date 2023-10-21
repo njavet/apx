@@ -41,3 +41,9 @@ class Balance(db.ActivityUnit):
             self.muscles = float(words[3])
         except (IndexError, ValueError):
             self.muscles = None
+
+
+database = pw.SqliteDatabase(db.DB_NAME)
+database.connect()
+database.create_tables([Balance], safe=True)
+database.close()

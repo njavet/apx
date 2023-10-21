@@ -42,3 +42,9 @@ class Round(db.SubUnit):
     round_nr = pw.IntegerField()
     breaths = pw.IntegerField()
     retention = pw.IntegerField()
+
+
+database = pw.SqliteDatabase(db.DB_NAME)
+database.connect()
+database.create_tables([Wimhof, Round], safe=True)
+database.close()
