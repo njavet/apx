@@ -3,12 +3,12 @@ import unittest
 import peewee as pw
 
 from apx.db import User
-from apx.activities.lifting import ActivityProcessor, Lifting, Set
+from apx.activities.lifting import ActivityProcessor, Lifting, LiftSet
 
 test_db = pw.SqliteDatabase(':memory:')
 test_user_id = 101
 
-MODELS = [User, Lifting, Set]
+MODELS = [User, Lifting, LiftSet]
 
 
 class TestSquat(unittest.TestCase):
