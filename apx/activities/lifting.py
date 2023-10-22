@@ -47,7 +47,7 @@ class ActivityProcessor(base.ActivityProcessor):
 
 
 class Lifting(db.ActivityUnit):
-    name = pw.CharField()
+    unit_name = pw.CharField()
 
     def parse(self, words):
         pass

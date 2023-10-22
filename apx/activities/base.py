@@ -16,12 +16,12 @@ class ActivityProcessor:
         self.activity.set_time(recv_time)
         self.parse_and_save(words)
 
-    def init_activity_unit(self, user_id, emoji, name=None, comment=None):
+    def init_activity_unit(self, user_id, emoji, unit_name=None, comment=None):
         self.activity = self.activity_model(user=user_id,
                                             emoji=emoji,
                                             comment=comment)
-        if name:
-            self.activity.name = name
+        if unit_name:
+            self.activity.unit_name = unit_name
 
     def parse_and_save(self, words):
         self.activity.parse(words)
