@@ -1,7 +1,6 @@
 # general imports
 
 # project imports
-from apx import db
 
 
 class ActivityProcessor:
@@ -30,4 +29,10 @@ class ActivityProcessor:
 
     def post_saving(self, user_id):
         pass
+
+
+class ActivityRetriever:
+    def __init__(self):
+        self.activity_model = None
+        self.subunit = None
 

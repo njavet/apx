@@ -1,5 +1,7 @@
 # general imports
 import peewee as pw
+import datetime
+import re
 
 # project imports
 from apx import db
@@ -14,12 +16,12 @@ class ActivityProcessor(base.ActivityProcessor):
 
     def parse_and_save(self, words):
         try:
-            self.activity.parse_and_set_start_end_time(words[0])
+            self.activity.parse_and_set_time_string(words[0])
         except IndexError:
-            raise exceptions.ActivityProcessingError('Specify the start and end time of the unit!')
-        self.activity.seconds = (self.activity.end - self.activity.start).seconds
+            raise exceptions.ActivityProcessingError('specify time')
         try:
-            self.activity.place = words[1]
+            self.activity.topic = words[1]
         except IndexError:
-            raise exceptions.ActivityProcessingError('Specify the gym')
+            raise exceptions.ActivityProcessingError('specify topic')
         self.activity.save()
+

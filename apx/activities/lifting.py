@@ -42,8 +42,8 @@ class ActivityProcessor(base.ActivityProcessor):
                          pause=b,
                          orm=orm,
                          rel_strength=rel_strength)
-            self.sets.append(ls)
             ls.save()
+            self.sets.append(ls)
 
 
 class Lifting(db.ActivityUnit):
